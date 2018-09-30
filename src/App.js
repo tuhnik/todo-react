@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TopBar from './TopBar.js'
 import './App.css';
 class App extends Component {
   constructor(){
@@ -71,7 +72,9 @@ class App extends Component {
       return this.state.todos.filter(el => el.done)
     }
   }
-
+  changeState(obj){
+    this.setState(obj)
+  }
   render() {
     return (
       <div className="App container">
@@ -79,19 +82,10 @@ class App extends Component {
          <form onSubmit={this.formSubmitted.bind(this)}>
            <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" placeholder= {this.state.placeholder} value = {this.state.newTodo}></input>
          </form>
-         {this.state.todos.length > 0 && <nav className = "todo-top-bar breadcrumb has-bullet-separator">
-         <ul>
-         <li className = {this.state.filter === "all"? "is-active": ""}> <a onClick={()=> {
-           this.setState({filter: "all"})
-         }}>All</a>     </li>
-         <li className = {this.state.filter === "remaining"? "is-active": ""}><a onClick={()=> {
-           this.setState({filter: "remaining"})    
-         }}>Remaining</a></li>
-          <li className = {this.state.filter === "done"? "is-active": ""}><a onClick={()=> {
-           this.setState({filter: "done"})   
-         }}>Done</a></li>
-         </ul>
-         </nav>}
+        <TopBar todos = {this.state.todos}
+                filter = {this.state.filter}
+                changeState = {this.changeState.bind(this)}
+        />
          <div className = "todo-list">
          {this.filterTodos().map((el, i)=>{
            return (<span className = "tag is-large todo-item" key = {i}>
