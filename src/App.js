@@ -74,7 +74,7 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
-      <h2 className = "title is-2">📝 todo in react</h2>
+      <h2 className = "title is-2"><span role="img" aria-label="logo">📝</span> todo in react</h2>
          <form onSubmit={this.formSubmitted.bind(this)}>
            <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" placeholder= "What next?" value = {this.state.newTodo}></input>
          </form>
