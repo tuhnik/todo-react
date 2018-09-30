@@ -25,18 +25,24 @@ class App extends Component {
     todos.splice(i, 1)
     this.setState({todos})
   }
+  clearCompleted(){
+    let todos = [...this.state.todos]
+    todos = todos.filter(todo => !todo.done)
+    this.setState({todos})
+
+  }
   render() {
     return (
       <div className="App container">
       <h2 className = "title is-2">todo in react</h2>
          <form onSubmit={this.formSubmitted.bind(this)}>
-           <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" value = {this.state.newTodo}></input>
+           <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" placeholder= "What next?" value = {this.state.newTodo}></input>
          </form>
          <div className = "todo-list">
          {this.state.todos.map((el, i)=>{
            return (<span className = "tag is-large todo-item" key = {i}>
            <div className = "todo-left">
-           <input onChange= {(evt) => this.toggleDone(evt, i)} type="checkbox"></input>
+           <input onChange= {(evt) => this.toggleDone(evt, i)} type="checkbox" checked = {this.state.todos[i].done}></input>
            <span style = {{"textDecoration": el.done ? "line-through": ""}}>{el.title}</span>
           </div>
            <button className = "delete" onClick = {()=>this.removeTodo(i)}></button>
@@ -45,8 +51,10 @@ class App extends Component {
         </div>
         {this.state.todos.length > 0 && <div>
         <hr className = "todo-line"></hr>
-        <div className = "todo-items-remaining">{this.state.todos.filter(el=>!el.done).length} items remaining</div>
+        <div className = "todo-bottom-bar"><a className="button is-small" onClick={this.clearCompleted.bind(this)}>Clear completed</a> 
+        <div className = "todo-items-remaining">{this.state.todos.filter(el=>!el.done).length} items remaining</div></div>    
         </div>}
+        
       </div>
     );
   }
