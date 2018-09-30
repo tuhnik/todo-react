@@ -42,7 +42,7 @@ class App extends Component {
          {this.state.todos.map((el, i)=>{
            return (<span className = "tag is-large todo-item" key = {i}>
            <div className = "todo-left">
-           <input onChange= {(evt) => this.toggleDone(evt, i)} type="checkbox" checked = {this.state.todos[i].done}></input>
+           <input onChange= {(evt) => this.toggleDone(evt, i)} type="checkbox" checked = {el.done}></input>
            <span style = {{"textDecoration": el.done ? "line-through": ""}}>{el.title}</span>
           </div>
            <button className = "delete" onClick = {()=>this.removeTodo(i)}></button>
