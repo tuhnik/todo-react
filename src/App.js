@@ -60,6 +60,17 @@ class App extends Component {
     }
   }
 
+
+//   <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+//   <ul>
+//     <li><a href="#">Bulma</a></li>
+//     <li><a href="#">Documentation</a></li>
+//     <li><a href="#">Components</a></li>
+//     <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
+//   </ul>
+// </nav>
+
+
   render() {
     return (
       <div className="App container">
@@ -67,17 +78,19 @@ class App extends Component {
          <form onSubmit={this.formSubmitted.bind(this)}>
            <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" placeholder= "What next?" value = {this.state.newTodo}></input>
          </form>
-         {this.state.todos.length > 0 && <div className = "todo-top-bar">
-         <a className = {this.state.filter === "all"? "button is-small is-primary": "button is-small"} onClick={()=> {
+         {this.state.todos.length > 0 && <nav className = "todo-top-bar breadcrumb has-bullet-separator">
+         <ul>
+         <li className = {this.state.filter === "all"? "is-active": ""}> <a onClick={()=> {
            this.setState({filter: "all"})
-         }}>All</a>     
-         <a className = {this.state.filter === "remaining"? "button is-small is-primary": "button is-small"} onClick={()=> {
+         }}>All</a>     </li>
+         <li className = {this.state.filter === "remaining"? "is-active": ""}><a onClick={()=> {
            this.setState({filter: "remaining"})    
-         }}>Remaining</a>
-          <a className = {this.state.filter === "done"? "button is-small is-primary": "button is-small"} onClick={()=> {
+         }}>Remaining</a></li>
+          <li className = {this.state.filter === "done"? "is-active": ""}><a onClick={()=> {
            this.setState({filter: "done"})   
-         }}>Done</a>
-         </div>}
+         }}>Done</a></li>
+         </ul>
+         </nav>}
          <div className = "todo-list">
          {this.filterTodos(this.state.filter).map((el, i)=>{
            return (<span className = "tag is-large todo-item" key = {i}>

@@ -10,7 +10,7 @@
     border-radius: 5px;
     width: 100%;
     padding: 10px;
-    margin-top: 15px;
+    margin-bottom: 15px;
 
 }
 
@@ -24,7 +24,7 @@ input[type=checkbox]{
 }
 
 .todo-line {
-    margin-top: 15px;
+    margin-top: 0px;
     margin-bottom: 10px;
 }
 
@@ -40,22 +40,24 @@ input[type=checkbox]{
 }
 
 .todo-top-bar {
-    margin-top: 15px;
+    margin-top: 15px !important;
     display: flex;
     justify-content: center;
+    margin-bottom: 15px !important;
 }
 
 .todo-top-bar > * {
     margin-left: 10px;
 }
-@media only screen and (max-width: 1080px) {
-    .container {
-        width: 80%;
-    }
-} 
+
 @media only screen and (max-width: 768px) {
     .container {
         width: 100%;
     }
 } 
 
+@media only screen and (max-width: 1080px) {
+    .container {
+        width: 80%;
+    }
+} 
