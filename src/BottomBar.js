@@ -8,9 +8,8 @@ return(
         {props.todos.filter(el=>el.done).length > 0 && <a className="button is-small" onClick={props.clearDone}>Clear done</a> }
         <div className = "todo-items-remaining">{props.todos.filter(el=>!el.done).length} items remaining</div></div>    
         </div>}
-    </React.Fragment>)
+    </React.Fragment>
+    )
 }
-
-
 
 export default BottomBar;

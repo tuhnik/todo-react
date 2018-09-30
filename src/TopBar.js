@@ -16,9 +16,6 @@ return(
             </ul>
         </nav>}
     </React.Fragment>)
-
 }
-
-
 
 export default TopBar;
