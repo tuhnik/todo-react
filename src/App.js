@@ -4,28 +4,42 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
+      placeholder: "What next?",
       filter: "all",
       newTodo: "",
       todos: []
     }
   }
+
+  
   componentDidMount() {
     let todos = localStorage.todos || []
-    if(todos) todos = JSON.parse(todos)
+    if(todos.length) todos = JSON.parse(todos)
     this.setState({todos})
+    this.changePlaceholder()
+
  }
-  formSubmitted(evt){
+
+ changePlaceholder(){
+  let placeholders = ["Better write it down before you forget it...", "Todo or not todo...", "What next?", "Save your ideas here...", "Enter next fun thing to do...", "What are you planning?", "Got some idea?"]
+  this.setState({placeholder: placeholders[Math.floor(Math.random()*placeholders.length)]})
+ }
+ formSubmitted(evt){
     evt.preventDefault()
+    if(!this.state.newTodo.trim().length) {
+      return
+    }
     this.setState({newTodo: "", todos: [...this.state.todos, {title: this.state.newTodo, done: false}]}, () => {
       localStorage.setItem("todos", JSON.stringify(this.state.todos));
     })
+    this.changePlaceholder()
   }
   inputChanged(evt){
     this.setState({newTodo: evt.target.value})
   }
   toggleDone(evt, i){
     let todos = [...this.state.todos]
-    this.filterTodos(this.state.filter)[i].done = evt.target.checked
+    this.filterTodos()[i].done = evt.target.checked
     this.setState({todos}, () => {
       localStorage.setItem("todos", JSON.stringify(this.state.todos));
     })
@@ -39,44 +53,32 @@ class App extends Component {
     })
    
   }
-  clearCompleted(){
+  clearDone(){
     let todos = [...this.state.todos]
     todos = todos.filter(todo => !todo.done)
     this.setState({todos}, () => {
       localStorage.setItem("todos", JSON.stringify(this.state.todos));
     })
   }
-
-  filterTodos(filter){
-    if(filter === "all") {
+  filterTodos(){
+    if(this.state.filter === "all") {
       return this.state.todos
     }
-    if(filter === "remaining") {
+    if(this.state.filter === "remaining") {
       return this.state.todos.filter(el => !el.done)
     }
 
-    if(filter === "done"){
+    if(this.state.filter === "done"){
       return this.state.todos.filter(el => el.done)
     }
   }
 
-
-//   <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
-//   <ul>
-//     <li><a href="#">Bulma</a></li>
-//     <li><a href="#">Documentation</a></li>
-//     <li><a href="#">Components</a></li>
-//     <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
-//   </ul>
-// </nav>
-
-
   render() {
     return (
       <div className="App container">
-      <h2 className = "title is-2"><span role="img" aria-label="logo">📝</span> todo in react</h2>
+      <h1 className = "title is-2"><span role="img" aria-label="logo">📝</span> todo in react</h1>
          <form onSubmit={this.formSubmitted.bind(this)}>
-           <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" placeholder= "What next?" value = {this.state.newTodo}></input>
+           <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" placeholder= {this.state.placeholder} value = {this.state.newTodo}></input>
          </form>
          {this.state.todos.length > 0 && <nav className = "todo-top-bar breadcrumb has-bullet-separator">
          <ul>
@@ -92,7 +94,7 @@ class App extends Component {
          </ul>
          </nav>}
          <div className = "todo-list">
-         {this.filterTodos(this.state.filter).map((el, i)=>{
+         {this.filterTodos().map((el, i)=>{
            return (<span className = "tag is-large todo-item" key = {i}>
            <div className = "todo-left">
            <input onChange= {(evt) => this.toggleDone(evt, i)} type="checkbox" checked = {el.done}></input>
@@ -105,7 +107,7 @@ class App extends Component {
         {this.state.todos.length > 0 && <div>
         <hr className = "todo-line"></hr>
         <div className = "todo-bottom-bar">
-        {this.state.todos.filter(el=>el.done).length > 0 && <a className="button is-small" onClick={this.clearCompleted.bind(this)}>Clear completed</a> }
+        {this.state.todos.filter(el=>el.done).length > 0 && <a className="button is-small" onClick={this.clearDone.bind(this)}>Clear done</a> }
         
         <div className = "todo-items-remaining">{this.state.todos.filter(el=>!el.done).length} items remaining</div></div>    
         </div>}
