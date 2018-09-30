@@ -6,4 +6,4 @@ Development: ```npm run start```
 Production: ```npm run build```
 
 # Screenshot
-![Screenshot](/screenshots/screenshot 2.PNG?raw=true)
+![Screenshot](/screenshots/screenshot2.PNG?raw=true)
