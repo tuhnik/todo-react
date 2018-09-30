@@ -6,7 +6,7 @@ return(
             <ul>
                 <li className = {props.filter === "all"? "is-active": ""}> <a onClick={()=> {
                     props.changeState({filter: "all"})
-                    }}>All</a>     </li>
+                    }}>All</a></li>
                 <li className = {props.filter === "remaining"? "is-active": ""}><a onClick={()=> {
                     props.changeState({filter: "remaining"})    
                     }}>Remaining</a></li>

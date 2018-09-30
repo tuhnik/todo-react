@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import TopBar from './TopBar.js'
+import BottomBar from './BottomBar.js'
+import TodoList from './TodoList.js'
 import './App.css';
 class App extends Component {
   constructor(){
@@ -86,24 +88,12 @@ class App extends Component {
                 filter = {this.state.filter}
                 changeState = {this.changeState.bind(this)}
         />
-         <div className = "todo-list">
-         {this.filterTodos().map((el, i)=>{
-           return (<span className = "tag is-large todo-item" key = {i}>
-           <div className = "todo-left">
-           <input onChange= {(evt) => this.toggleDone(evt, i)} type="checkbox" checked = {el.done}></input>
-           <span style = {{"textDecoration": el.done ? "line-through": ""}}>{el.title}</span>
-          </div>
-           <button className = "delete" onClick = {()=>this.removeTodo(i)}></button>
-           </span>)
-         })}
-        </div>
-        {this.state.todos.length > 0 && <div>
-        <hr className = "todo-line"></hr>
-        <div className = "todo-bottom-bar">
-        {this.state.todos.filter(el=>el.done).length > 0 && <a className="button is-small" onClick={this.clearDone.bind(this)}>Clear done</a> }
-        
-        <div className = "todo-items-remaining">{this.state.todos.filter(el=>!el.done).length} items remaining</div></div>    
-        </div>}
+        <TodoList filterTodos = {this.filterTodos.bind(this)}
+                  toggleDone = {this.toggleDone.bind(this)}
+                  removeTodo = {this.removeTodo.bind(this)}        
+        />
+        <BottomBar todos = {this.state.todos}
+                   clearDone = {this.clearDone.bind(this)}/>
         
       </div>
     );
