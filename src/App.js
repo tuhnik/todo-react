@@ -18,7 +18,7 @@ class App extends Component {
   }
   toggleDone(evt, i){
     let todos = [...this.state.todos]
-    todos[i].done = evt.target.checked
+    this.filterTodos(this.state.filter)[i].done = evt.target.checked
     this.setState({todos})
   }
   removeTodo(i){
