@@ -86,15 +86,12 @@ class App extends Component {
          </form>
         <TopBar todos = {this.state.todos}
                 filter = {this.state.filter}
-                changeState = {this.changeState.bind(this)}
-        />
+                changeState = {this.changeState.bind(this)}/>
         <TodoList filterTodos = {this.filterTodos.bind(this)}
-                  toggleDone = {this.toggleDone.bind(this)}
-                  removeTodo = {this.removeTodo.bind(this)}        
-        />
+                toggleDone = {this.toggleDone.bind(this)}
+                removeTodo = {this.removeTodo.bind(this)}/>
         <BottomBar todos = {this.state.todos}
-                   clearDone = {this.clearDone.bind(this)}/>
-        
+                clearDone = {this.clearDone.bind(this)}/>   
       </div>
     );
   }
