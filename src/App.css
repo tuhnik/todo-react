@@ -48,9 +48,14 @@ input[type=checkbox]{
 .todo-top-bar > * {
     margin-left: 10px;
 }
-
+@media only screen and (max-width: 1080px) {
+    .container {
+        width: 80%;
+    }
+} 
 @media only screen and (max-width: 768px) {
     .container {
         width: 100%;
     }
 } 
+
