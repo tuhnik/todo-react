@@ -1,0 +1,34 @@
+.App {
+    width: 30%;
+    padding: 10px;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(209, 209, 209);
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+
+}
+
+input[type=checkbox]{
+    margin-right: 5px;
+}
+
+.todo-left {
+    width: 100%;  
+    overflow: hidden;
+}
+
+.todo-line {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.todo-items-remaining {
+    color: rgb(199, 199, 199);
+    text-align: right;
+}
