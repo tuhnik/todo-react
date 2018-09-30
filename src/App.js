@@ -13,15 +13,12 @@ class App extends Component {
       todos: []
     }
   }
-
-  
   componentDidMount() {
     let todos = localStorage.todos || []
     if(todos.length) todos = JSON.parse(todos)
     this.setState({todos})
     this.changePlaceholder()
  }
-
  changePlaceholder(){
   let placeholders = ["Better write it down before you forget it...", "Todo or not todo...", "What next?", "Save your ideas here...", "Enter next fun thing to do...", "What are you planning?", "Got some idea?"]
   this.setState({placeholder: placeholders[Math.floor(Math.random()*placeholders.length)]})
@@ -36,48 +33,45 @@ class App extends Component {
     })
     this.changePlaceholder()
   }
-  inputChanged(evt){
+inputChanged(evt){
     this.setState({newTodo: evt.target.value})
   }
-  toggleDone(evt, i){
+toggleDone(evt, i){
     let todos = [...this.state.todos]
     this.filterTodos()[i].done = evt.target.checked
     this.setState({todos}, () => {
       localStorage.setItem("todos", JSON.stringify(this.state.todos));
     })
-
   }
-  removeTodo(i){
+removeTodo(i){
     let todos = [...this.state.todos]
     todos.splice(i, 1)
     this.setState({todos}, () => {
       localStorage.setItem("todos", JSON.stringify(this.state.todos));
-    })
-   
+    })   
   }
-  clearDone(){
+clearDone(){
     let todos = [...this.state.todos]
     todos = todos.filter(todo => !todo.done)
     this.setState({todos}, () => {
       localStorage.setItem("todos", JSON.stringify(this.state.todos));
     })
   }
-  filterTodos(){
+filterTodos(){
     if(this.state.filter === "all") {
       return this.state.todos
     }
     if(this.state.filter === "remaining") {
       return this.state.todos.filter(el => !el.done)
     }
-
     if(this.state.filter === "done"){
       return this.state.todos.filter(el => el.done)
     }
   }
-  changeState(obj){
+changeState(obj){
     this.setState(obj)
   }
-  render() {
+render() {
     return (
       <div className="App container">
       <h1 className = "title is-2"><span role="img" aria-label="logo">📝</span> todo in react</h1>
