@@ -29,8 +29,11 @@ class App extends Component {
     let todos = [...this.state.todos]
     todos = todos.filter(todo => !todo.done)
     this.setState({todos})
-
   }
+
+ 
+
+
   render() {
     return (
       <div className="App container">
@@ -51,7 +54,9 @@ class App extends Component {
         </div>
         {this.state.todos.length > 0 && <div>
         <hr className = "todo-line"></hr>
-        <div className = "todo-bottom-bar"><a className="button is-small" onClick={this.clearCompleted.bind(this)}>Clear completed</a> 
+        <div className = "todo-bottom-bar">
+        {this.state.todos.filter(el=>el.done).length > 0 && <a className="button is-small" onClick={this.clearCompleted.bind(this)}>Clear completed</a> }
+        
         <div className = "todo-items-remaining">{this.state.todos.filter(el=>!el.done).length} items remaining</div></div>    
         </div>}
         
