@@ -9,9 +9,16 @@ class App extends Component {
       todos: []
     }
   }
+  componentDidMount() {
+    let todos = localStorage.todos || []
+    if(todos) todos = JSON.parse(todos)
+    this.setState({todos})
+ }
   formSubmitted(evt){
     evt.preventDefault()
-    this.setState({newTodo: "", todos: [...this.state.todos, {title: this.state.newTodo, done: false}]})
+    this.setState({newTodo: "", todos: [...this.state.todos, {title: this.state.newTodo, done: false}]}, () => {
+      localStorage.setItem("todos", JSON.stringify(this.state.todos));
+    })
   }
   inputChanged(evt){
     this.setState({newTodo: evt.target.value})
@@ -19,17 +26,25 @@ class App extends Component {
   toggleDone(evt, i){
     let todos = [...this.state.todos]
     this.filterTodos(this.state.filter)[i].done = evt.target.checked
-    this.setState({todos})
+    this.setState({todos}, () => {
+      localStorage.setItem("todos", JSON.stringify(this.state.todos));
+    })
+
   }
   removeTodo(i){
     let todos = [...this.state.todos]
     todos.splice(i, 1)
-    this.setState({todos})
+    this.setState({todos}, () => {
+      localStorage.setItem("todos", JSON.stringify(this.state.todos));
+    })
+   
   }
   clearCompleted(){
     let todos = [...this.state.todos]
     todos = todos.filter(todo => !todo.done)
-    this.setState({todos})
+    this.setState({todos}, () => {
+      localStorage.setItem("todos", JSON.stringify(this.state.todos));
+    })
   }
 
   filterTodos(filter){
@@ -53,19 +68,15 @@ class App extends Component {
            <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" placeholder= "What next?" value = {this.state.newTodo}></input>
          </form>
          {this.state.todos.length > 0 && <div className = "todo-top-bar">
-
          <a className = {this.state.filter === "all"? "button is-small is-primary": "button is-small"} onClick={()=> {
            this.setState({filter: "all"})
-         }}>All</a>
-        
+         }}>All</a>     
          <a className = {this.state.filter === "remaining"? "button is-small is-primary": "button is-small"} onClick={()=> {
            this.setState({filter: "remaining"})    
          }}>Remaining</a>
-
           <a className = {this.state.filter === "done"? "button is-small is-primary": "button is-small"} onClick={()=> {
            this.setState({filter: "done"})   
          }}>Done</a>
-
          </div>}
          <div className = "todo-list">
          {this.filterTodos(this.state.filter).map((el, i)=>{
