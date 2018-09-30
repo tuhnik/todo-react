@@ -41,6 +41,11 @@ class App extends Component {
          <form onSubmit={this.formSubmitted.bind(this)}>
            <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" placeholder= "What next?" value = {this.state.newTodo}></input>
          </form>
+         <div className = "todo-top-bar">
+         <a className="button is-small">All</a>
+         <a className="button is-small">Not done</a>
+         <a className="button is-small">Done</a>
+         </div>
          <div className = "todo-list">
          {this.state.todos.map((el, i)=>{
            return (<span className = "tag is-large todo-item" key = {i}>
