@@ -4,6 +4,7 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
+      filter: "all",
       newTodo: "",
       todos: []
     }
@@ -31,8 +32,18 @@ class App extends Component {
     this.setState({todos})
   }
 
- 
+  filterTodos(filter){
+    if(filter === "all") {
+      return this.state.todos
+    }
+    if(filter === "remaining") {
+      return this.state.todos.filter(el => !el.done)
+    }
 
+    if(filter === "done"){
+      return this.state.todos.filter(el => el.done)
+    }
+  }
 
   render() {
     return (
@@ -41,13 +52,23 @@ class App extends Component {
          <form onSubmit={this.formSubmitted.bind(this)}>
            <input className = "input" onChange={this.inputChanged.bind(this)}type = "text" placeholder= "What next?" value = {this.state.newTodo}></input>
          </form>
-         <div className = "todo-top-bar">
-         <a className="button is-small">All</a>
-         <a className="button is-small">Not done</a>
-         <a className="button is-small">Done</a>
-         </div>
+         {this.state.todos.length > 0 && <div className = "todo-top-bar">
+
+<a className = {this.state.filter === "all"? "button is-small is-primary": "button is-small"} onClick={()=> {
+  this.setState({filter: "all"})
+}}>All</a>
+
+<a className = {this.state.filter === "remaining"? "button is-small is-primary": "button is-small"} onClick={()=> {
+  this.setState({filter: "remaining"})    
+}}>Remaining</a>
+
+ <a className = {this.state.filter === "done"? "button is-small is-primary": "button is-small"} onClick={()=> {
+  this.setState({filter: "done"})   
+}}>Done</a>
+
+</div>}
          <div className = "todo-list">
-         {this.state.todos.map((el, i)=>{
+         {this.filterTodos(this.state.filter).map((el, i)=>{
            return (<span className = "tag is-large todo-item" key = {i}>
            <div className = "todo-left">
            <input onChange= {(evt) => this.toggleDone(evt, i)} type="checkbox" checked = {el.done}></input>
