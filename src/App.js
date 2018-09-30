@@ -54,19 +54,19 @@ class App extends Component {
          </form>
          {this.state.todos.length > 0 && <div className = "todo-top-bar">
 
-<a className = {this.state.filter === "all"? "button is-small is-primary": "button is-small"} onClick={()=> {
-  this.setState({filter: "all"})
-}}>All</a>
+         <a className = {this.state.filter === "all"? "button is-small is-primary": "button is-small"} onClick={()=> {
+           this.setState({filter: "all"})
+         }}>All</a>
+        
+         <a className = {this.state.filter === "remaining"? "button is-small is-primary": "button is-small"} onClick={()=> {
+           this.setState({filter: "remaining"})    
+         }}>Remaining</a>
 
-<a className = {this.state.filter === "remaining"? "button is-small is-primary": "button is-small"} onClick={()=> {
-  this.setState({filter: "remaining"})    
-}}>Remaining</a>
+          <a className = {this.state.filter === "done"? "button is-small is-primary": "button is-small"} onClick={()=> {
+           this.setState({filter: "done"})   
+         }}>Done</a>
 
- <a className = {this.state.filter === "done"? "button is-small is-primary": "button is-small"} onClick={()=> {
-  this.setState({filter: "done"})   
-}}>Done</a>
-
-</div>}
+         </div>}
          <div className = "todo-list">
          {this.filterTodos(this.state.filter).map((el, i)=>{
            return (<span className = "tag is-large todo-item" key = {i}>
