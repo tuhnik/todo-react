@@ -17,7 +17,6 @@ class App extends Component {
     if(todos.length) todos = JSON.parse(todos)
     this.setState({todos})
     this.changePlaceholder()
-
  }
 
  changePlaceholder(){
