@@ -1,3 +1,6 @@
+# Classic todo app in React
+Todos are saved in LocalStorage.
+
 # Setup
 Setup: ```npm install```
 
