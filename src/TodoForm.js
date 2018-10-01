@@ -1,5 +1,5 @@
 import React from 'react';
-const TodoList = (props) => {
+const TodoForm = (props) => {
 return (
   <React.Fragment>
     <form onSubmit={props.formSubmitted}>
@@ -15,4 +15,4 @@ return (
 );
 }
 
-export default TodoList;
+export default TodoForm;
